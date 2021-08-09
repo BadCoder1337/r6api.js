@@ -1,4 +1,5 @@
-import nodeFetch, { RequestInit, Response } from 'node-fetch';
+import { RequestInit, Response } from 'node-fetch';
+import nodeFetch from 'make-fetch-happen';
 
 import { ubiAppId } from './auth';
 
