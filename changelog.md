@@ -6,6 +6,49 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.0.0] - 2021-12-04
+
+> Note: `Thorn` is missing `id` (see: [#78](https://github.com/danielwerg/r6api.js/issues/78))
+
+### Added
+* High Calibre season and Thorn ([0d771a](https://github.com/danielwerg/r6api.js/commit/0d771a8a0b321db157ab4d1ac20ce651775b232d))
+* Thorn icon ([0fcd822](https://github.com/danielwerg/r6api.js/commit/0fcd822a7c7fcce3c66d5d127994555de30b87a0))
+
+### Changed
+* All operator icons to new style (translucent border and more simplistic), resolution from 1500x1500 to 1000x1000 ([0fcd822](https://github.com/danielwerg/r6api.js/commit/0fcd822a7c7fcce3c66d5d127994555de30b87a0))
+* `[getRanks].[number].seasons`, `[getRanks].[number].seasons[seasonId].regions` and `[getRanks].[number].seasons[seasonId].regions[regionId].boards` using `Record` type now ([fe78b53](https://github.com/danielwerg/r6api.js/commit/fe78b537180401bcfb4adc85ef258d32d20589fa))
+* **[BREAKING?]** `[getRanks].[number].seasons[seasonId].seasonColor` type from `string` to `#${string}` ([String Types as Discriminants](https://devblogs.microsoft.com/typescript/announcing-typescript-4-5/#template-string-discriminants)) ([b85b1fd](https://github.com/danielwerg/r6api.js/commit/b85b1fd0a392724c863d5b49691af4c660308c64))
+
+### Fixed
+* Types for `[getUserStatus].status` ([f309108](https://github.com/danielwerg/r6api.js/commit/f309108cb48e0493898670754a9dde450c64d735))
+
+## [3.1.0] - 2021-10-22
+
+### Added
+* `placement` options for `getNews`
+
+### Changed
+* Change default `locale` for `getNews` and `getNewsById` from `en-us` to `en-gb`
+
+### Fixed
+* Ubisoft news url and endpoint
+* Types for `getNews` and `getNewsById`
+* Error message for `fetch.ts` returning `undefined` if `json.httpCode` and/or `json.message` is not present
+
+## [3.0.0] - 2021-10-05
+
+### Added
+* Crystal Guard Season
+* Osa operator
+
+### Changed
+* Colors for all seasons ([source](https://www.ubisoft.com/en-us/game/rainbow-six/siege/game-info/seasons))
+* Status code in fetch error
+* **[Breaking]** `RANKS` and `OLD_RANKS` replaced with `RANKS_V1`, `RANKS_V2`, `RANKS_V3`, `RANKS_V4`, `RANKS_V5` and now has `range` value for mmr range
+
+### Fixed
+* Double export of default for es modules
+
 ## [2.1.0] - 2021-08-06
 
 ### Added
@@ -66,7 +109,10 @@ Forgot to build for v2.0.1
 * `response.js` script
 * `.npmignore`
 
-[Unreleased]: https://github.com/danielwerg/r6api.js/compare/v2.1.0...master
+[Unreleased]: https://github.com/danielwerg/r6api.js/compare/v4.0.0...master
+[4.0.0]: https://github.com/danielwerg/r6api.js/compare/v3.1.0...v4.0.0
+[3.1.0]: https://github.com/danielwerg/r6api.js/compare/v3.0.0...v3.1.0
+[3.0.0]: https://github.com/danielwerg/r6api.js/compare/v2.1.0...v3.0.0
 [2.1.0]: https://github.com/danielwerg/r6api.js/compare/v2.0.2...v2.1.0
 [2.0.2]: https://github.com/danielwerg/r6api.js/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/danielwerg/r6api.js/compare/v2.0.0...v2.0.1

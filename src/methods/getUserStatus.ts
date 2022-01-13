@@ -12,7 +12,7 @@ export interface IConnections {
   lastModifiedAt: string;
   stagingSpaceId: string;
 }
-export type OnlineStatus = 'online' | 'offline';
+export type OnlineStatus = 'online' | 'away' | 'dnd' | 'offline';
 export interface IOnlineStatuses {
   connections: IConnections[];
   manuallySet?: boolean;
@@ -37,7 +37,9 @@ export const optionsDocs: IOptionsDocs = [
 export default (ids: UUID[] | string[], options: IOptions) => {
 
   return getToken()
-    .then(fetch<IApiResponse>(getURL.ONLINESTATUS(ids), { headers: { 'Ubi-LocaleCode': 'x'} }))
+    .then(
+      fetch<IApiResponse>(getURL.ONLINESTATUS(ids), { headers: { 'Ubi-LocaleCode': 'x' } })
+    )
     .then(res => res.onlineStatuses)
     .then(async res => {
 

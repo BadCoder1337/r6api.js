@@ -1,7 +1,7 @@
 import { getToken } from '../auth';
 import fetch from '../fetch';
 import {
-  Platform, UUID, SeasonId, SeasonIdExtended, RankId, OldRankId, RegionId, BoardId,
+  Platform, UUID, SeasonId, SeasonIdExtended, RankIdV3, RankIdV4, RankIdV5, RegionId, BoardId,
   IOptionsDocs
 } from '../typings';
 import { REGIONS, SEASONS, BOARDS } from '../constants';
@@ -16,8 +16,8 @@ export interface IRank {
   deaths: number;
   profile_id: string;
   next_rank_mmr: number;
-  rank: RankId | OldRankId;
-  max_rank: RankId | OldRankId;
+  rank: RankIdV3 | RankIdV4 | RankIdV5;
+  max_rank: RankIdV3 | RankIdV4 | RankIdV5;
   board_id: BoardId;
   skill_stdev: number;
   kills: number;
@@ -39,73 +39,65 @@ export interface IRank {
   losses: number;
 }
 export interface IApiResponse {
-  players: {
-    [id: string]: IRank;
-  };
+  players: Record<string, IRank>
 }
 
-export interface IBoards {
-  [id: string]: {
-    boardId: BoardId;
-    boardName: string;
-    skillMean: number;
-    skillStdev: number;
-    current: {
-      id: number;
-      name: string;
-      mmr: number;
-      icon: string;
-    };
-    max: {
-      id: number;
-      name: string;
-      mmr: number;
-      icon: string;
-    };
-    lastMatch: {
-      result: string;
-      mmrChange: number;
-      skillMeanChange: number;
-      skillStdevChange: number;
-    };
-    pastSeasons: {
-      wins: number;
-      losses: number;
-      winRate: string;
-      matches: number;
-      abandons: number;
-    };
-    previousMmr: number;
-    nextMmr: number;
-    topRankPosition: number;
-    kills: number;
-    deaths: number;
-    kd: number;
+export type IBoards = Record<BoardId, {
+  boardId: BoardId;
+  boardName: string;
+  skillMean: number;
+  skillStdev: number;
+  current: {
+    id: number;
+    name: string;
+    mmr: number;
+    icon: string;
+  };
+  max: {
+    id: number;
+    name: string;
+    mmr: number;
+    icon: string;
+  };
+  lastMatch: {
+    result: string;
+    mmrChange: number;
+    skillMeanChange: number;
+    skillStdevChange: number;
+  };
+  pastSeasons: {
     wins: number;
     losses: number;
     winRate: string;
     matches: number;
     abandons: number;
-    updateTime: string;
-  }
-}
-export interface IRegions {
-  [id: string]: {
-    regionId: RegionId;
-    regionName: string;
-    boards: IBoards;
   };
-}
-export interface ISeasons {
-  [id: string]: {
-    seasonId: SeasonId;
-    seasonName?: string;
-    seasonColor?: string;
-    seasonImage?: string;
-    seasonReleaseDate?: string;
-    regions: IRegions;
-  };
-}
+  previousMmr: number;
+  nextMmr: number;
+  topRankPosition: number;
+  kills: number;
+  deaths: number;
+  kd: number;
+  wins: number;
+  losses: number;
+  winRate: string;
+  matches: number;
+  abandons: number;
+  updateTime: string;
+}>
+export type IRegions = Record<RegionId, {
+  regionId: RegionId;
+  regionName: string;
+  boards: IBoards;
+}>
+export type ISeasons = Record<SeasonId, {
+  seasonId: SeasonId;
+  seasonName?: string;
+  seasonColor?: `#${string}`;
+  seasonImage?: string;
+  seasonReleaseDate?: string;
+  regions: IRegions;
+}>
 export interface IGetRanks {
   id: UUID;
   seasons: ISeasons;
@@ -178,7 +170,8 @@ export default (platform: Platform, ids: UUID[], options?: IOptions) => {
 
                 const matches = val.wins + val.losses;
                 const currentRankId =
-                  boardId !== 'pvp_ranked' ? getRankIdFromMmr(val.mmr, matches) : val.rank;
+                  boardId !== 'pvp_ranked'
+                    ? getRankIdFromMmr(seasonId, val.mmr, matches) : val.rank;
 
                 acc[id] = acc[id] || { id: id as UUID, seasons: {} };
                 acc[id].seasons[seasonId] = acc[id].seasons[seasonId] || {
