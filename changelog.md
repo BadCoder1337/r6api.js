@@ -6,16 +6,56 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.4.1] - 2022-09-06
+
+### Fixed
+
+* Build javascript for [4.4.0]
+
+## [4.4.0] - 2022-09-06
+
+### Added
+
+* Brutal Swarm season
+* Grim operator
+* Grim icon
+
+### Fixed
+
+* Icon for M249 SAW
+
+## [4.3.0] - 2022-06-28
+
+### Added
+
+* [`prepare`](https://docs.npmjs.com/cli/v8/using-npm/scripts#prepare-and-prepublish) script that will check if `dist` dir exists and if not runs `build` script on `npm install` or `yarn install`, only relevant when installing from GitHub
+
+## [4.2.1] - 2022-06-27
+
+### Fixed
+
+* Inconsistency with the `isOperatorName` utility function ([71ea801](https://github.com/danielwerg/r6api.js/commit/71ea80181505d5adaac524e793c255f33f933cb3))
+
+## [4.2.0] - 2022-06-16
+
+### Added
+* Vector Glare season
+* Sens operator
+* Sens upscaled icon
+
+### Changed
+* Updated seasons colors
+
 ## [4.1.0] - 2022-03-16
 
 ### Added
-* Demon Veil season and Azami
+* Demon Veil season
+* Azami operator
 * Azami icon
 
 ## [4.0.1] - 2022-02-14
 
 ### Fixed
-
 * `isWeaponName` function now correctly checks for the weapon `id`
 
 ## [4.0.0] - 2021-12-04
@@ -121,7 +161,12 @@ Forgot to build for v2.0.1
 * `response.js` script
 * `.npmignore`
 
-[Unreleased]: https://github.com/danielwerg/r6api.js/compare/v4.1.0...master
+[unreleased]: https://github.com/danielwerg/r6api.js/compare/v4.4.1...master
+[4.4.1]: https://github.com/danielwerg/r6api.js/compare/v4.4.0...v4.4.1
+[4.4.0]: https://github.com/danielwerg/r6api.js/compare/v4.3.0...v4.4.0
+[4.3.0]: https://github.com/danielwerg/r6api.js/compare/v4.2.1...v4.3.0
+[4.2.1]: https://github.com/danielwerg/r6api.js/compare/v4.2.0...v4.2.1
+[4.2.0]: https://github.com/danielwerg/r6api.js/compare/v4.1.0...v4.2.0
 [4.1.0]: https://github.com/danielwerg/r6api.js/compare/v4.0.1...v4.1.0
 [4.0.1]: https://github.com/danielwerg/r6api.js/compare/v4.0.0...v4.0.1
 [4.0.0]: https://github.com/danielwerg/r6api.js/compare/v3.1.0...v4.0.0
