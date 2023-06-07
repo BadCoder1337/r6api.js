@@ -1996,6 +1996,29 @@
             "icon": "https://staticctf.akamaized.net/J3yJr34U2pZ2Ieem48Dwy9uqj5PNUQTn/2Ws6ae13XPN5rcsw0WVt3d/d338fc7e22de9c2f620137d85ac4e29b/r6s-operator-ability-grim.png",
             "stats": null
           }
+        },
+        "solis": {
+          "name": "Solis",
+          "role": "defender",
+          "unit": "AFEAU",
+          "icon": "https://github.com/danielwerg/r6api.js/raw/master/assets/operators/solis.png",
+          "kills": 0,
+          "deaths": 0,
+          "kd": 0,
+          "wins": 0,
+          "losses": 0,
+          "winRate": "0.00%",
+          "matches": 0,
+          "headshots": 0,
+          "meleeKills": 0,
+          "dbno": 0,
+          "xp": 0,
+          "playtime": 0,
+          "uniqueAbility": {
+            "name": "SPEC-IO Electro-Sensor",
+            "icon": "https://staticctf.akamaized.net/J3yJr34U2pZ2Ieem48Dwy9uqj5PNUQTn/6yJdnB2YJGY5lMh9mmKIQT/62bb946eb6bd2583b1c78255cab72ac9/r6s-operator-ability-solis.png",
+            "stats": null
+          }
         }
       },
       "weapons": {
@@ -2208,17 +2231,6 @@
               "bulletsFired": 0,
               "bulletsConnected": 2062,
               "timesChosen": 39
-            },
-            "ar-15.50": {
-              "name": "AR-15.50",
-              "icon": "https://staticctf.akamaized.net/J3yJr34U2pZ2Ieem48Dwy9uqj5PNUQTn/4lGGEGZLkbldz114Wl5hCo/78a04c46654f80fae03e730bd79f3563/AR-15.50.png",
-              "kills": 2,
-              "deaths": 6,
-              "kd": 0.33,
-              "headshots": 1,
-              "bulletsFired": 0,
-              "bulletsConnected": 33,
-              "timesChosen": 2
             },
             "m4": {
               "name": "M4",
@@ -2679,6 +2691,17 @@
               "bulletsFired": 0,
               "bulletsConnected": 491,
               "timesChosen": 54
+            },
+            "ar-15.50": {
+              "name": "AR-15.50",
+              "icon": "https://staticctf.akamaized.net/J3yJr34U2pZ2Ieem48Dwy9uqj5PNUQTn/4lGGEGZLkbldz114Wl5hCo/78a04c46654f80fae03e730bd79f3563/AR-15.50.png",
+              "kills": 2,
+              "deaths": 6,
+              "kd": 0.33,
+              "headshots": 1,
+              "bulletsFired": 0,
+              "bulletsConnected": 33,
+              "timesChosen": 2
             },
             "csrx_300": {
               "name": "CSRX 300",
@@ -5245,6 +5268,28 @@
             "icon": "https://staticctf.akamaized.net/J3yJr34U2pZ2Ieem48Dwy9uqj5PNUQTn/2Ws6ae13XPN5rcsw0WVt3d/d338fc7e22de9c2f620137d85ac4e29b/r6s-operator-ability-grim.png",
             "stats": null
           }
+        },
+        "solis": {
+          "name": "Solis",
+          "role": "defender",
+          "unit": "AFEAU",
+          "icon": "https://github.com/danielwerg/r6api.js/raw/master/assets/operators/solis.png",
+          "kills": 0,
+          "deaths": 0,
+          "kd": 0,
+          "wins": 0,
+          "losses": 0,
+          "winRate": "0.00%",
+          "matches": 0,
+          "headshots": 0,
+          "meleeKills": 0,
+          "xp": 0,
+          "playtime": 0,
+          "uniqueAbility": {
+            "name": "SPEC-IO Electro-Sensor",
+            "icon": "https://staticctf.akamaized.net/J3yJr34U2pZ2Ieem48Dwy9uqj5PNUQTn/6yJdnB2YJGY5lMh9mmKIQT/62bb946eb6bd2583b1c78255cab72ac9/r6s-operator-ability-solis.png",
+            "stats": null
+          }
         }
       },
       "weapons": {
@@ -5457,17 +5502,6 @@
               "bulletsFired": 5118,
               "bulletsConnected": 1664,
               "timesChosen": 3
-            },
-            "ar-15.50": {
-              "name": "AR-15.50",
-              "icon": "https://staticctf.akamaized.net/J3yJr34U2pZ2Ieem48Dwy9uqj5PNUQTn/4lGGEGZLkbldz114Wl5hCo/78a04c46654f80fae03e730bd79f3563/AR-15.50.png",
-              "kills": 43,
-              "deaths": 0,
-              "kd": 43,
-              "headshots": 21,
-              "bulletsFired": 231,
-              "bulletsConnected": 118,
-              "timesChosen": 1
             },
             "m4": {
               "name": "M4",
@@ -5928,6 +5962,17 @@
               "bulletsFired": 1879,
               "bulletsConnected": 795,
               "timesChosen": 4
+            },
+            "ar-15.50": {
+              "name": "AR-15.50",
+              "icon": "https://staticctf.akamaized.net/J3yJr34U2pZ2Ieem48Dwy9uqj5PNUQTn/4lGGEGZLkbldz114Wl5hCo/78a04c46654f80fae03e730bd79f3563/AR-15.50.png",
+              "kills": 43,
+              "deaths": 0,
+              "kd": 43,
+              "headshots": 21,
+              "bulletsFired": 231,
+              "bulletsConnected": 118,
+              "timesChosen": 1
             },
             "csrx_300": {
               "name": "CSRX 300",

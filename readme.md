@@ -27,21 +27,21 @@
 
 ## Table of Contents
 
-* [Links](#Links)
-* [Installation](#Installation)
-* [Initialization](#Initialization)
-* [Example](#Example)
-* [API](#API)
-* [Typescript Integrations](#TypeScript-integrations)
-* [Credit](#Credit)
+- [Links](#Links)
+- [Installation](#Installation)
+- [Initialization](#Initialization)
+- [Example](#Example)
+- [API](#API)
+- [Typescript Integrations](#TypeScript-integrations)
+- [Credit](#Credit)
 
 ## Links
 
-* [GitHub](https://github.com/danielwerg/r6api.js)
-* [NPM](https://www.npmjs.com/package/r6api.js)
-* [YARN](https://yarnpkg.com/package/r6api.js)
-* [Releases](https://github.com/danielwerg/r6api.js/releases)
-* [Changelog](https://github.com/danielwerg/r6api.js/blob/master/changelog.md)
+- [GitHub](https://github.com/danielwerg/r6api.js)
+- [NPM](https://www.npmjs.com/package/r6api.js)
+- [YARN](https://yarnpkg.com/package/r6api.js)
+- [Releases](https://github.com/danielwerg/r6api.js/releases)
+- [Changelog](https://github.com/danielwerg/r6api.js/blob/master/changelog.md)
 
 ## Installation
 
@@ -93,31 +93,34 @@ exports.default = async () => {
 <!-- END_SECTION:EXAMPLE -->
 
 <!-- START_SECTION:EXAMPLE_OUTPUT -->
+
 ```
 Daniel.Nt has played 5648 matches.
 ```
+
 <!-- END_SECTION:EXAMPLE_OUTPUT -->
 
 ## API
 
 ### Table of Contents
 
-* [Definitions](#Definitions)
-* [constructor](#constructor)
-* [findByUsername](#findByUsername)
-* [findById](#findById)
-* [getProgression](#getProgression)
-* [getPlaytime](#getPlaytime)
-* [getRanks](#getRanks)
-* [getStats](#getStats)
-* [getStatus](#getStatus)
-* [getUserStatus](#getUserStatus)
-* [getProfileApplications](#getProfileApplications)
-* [getApplications](#getApplications)
-* [validateUsername](#validateUsername)
-* [getNews](#getNews)
-* [getNewsById](#getNewsById)
-* [custom](#custom)
+- [Definitions](#Definitions)
+- [constructor](#constructor)
+- [findByUsername](#findByUsername)
+- [findById](#findById)
+- [getProgression](#getProgression)
+- [getPlaytime](#getPlaytime)
+- [getRanks](#getRanks)
+- [getUserSeasonalv2](#getUserSeasonalv2)
+- [getStats](#getStats)
+- [getStatus](#getStatus)
+- [getUserStatus](#getUserStatus)
+- [getProfileApplications](#getProfileApplications)
+- [getApplications](#getApplications)
+- [validateUsername](#validateUsername)
+- [getNews](#getNews)
+- [getNewsById](#getNewsById)
+- [custom](#custom)
 
 ### Definitions
 
@@ -175,12 +178,12 @@ await r6api.findByUsername('uplay', 'Daniel.Nt');
     platform: 'uplay',
     username: 'Daniel.Nt',
     avatar: {
-      '146': 'https://ubisoft-avatars.akamaized.net/0b95544b-0228-49a7-b338-6d15cfbc3d6a/default_146_146.png',
-      '256': 'https://ubisoft-avatars.akamaized.net/0b95544b-0228-49a7-b338-6d15cfbc3d6a/default_256_256.png',
-      '500': 'https://ubisoft-avatars.akamaized.net/0b95544b-0228-49a7-b338-6d15cfbc3d6a/default_tall.png'
+      146: 'https://ubisoft-avatars.akamaized.net/0b95544b-0228-49a7-b338-6d15cfbc3d6a/default_146_146.png',
+      256: 'https://ubisoft-avatars.akamaized.net/0b95544b-0228-49a7-b338-6d15cfbc3d6a/default_256_256.png',
+      500: 'https://ubisoft-avatars.akamaized.net/0b95544b-0228-49a7-b338-6d15cfbc3d6a/default_tall.png'
     }
   }
-]
+];
 ```
 
 </details>
@@ -210,7 +213,9 @@ Ids limit: `50`
 // search by profileId (id)
 await r6api.findById('all', '91477729-b5ac-463c-9618-03ca154764f5');
 // search by userId
-await r6api.findById('all', '1baf5bf8-90cd-4ead-8b90-9a11cb2b8adf', { isUserId: true });
+await r6api.findById('all', '1baf5bf8-90cd-4ead-8b90-9a11cb2b8adf', {
+  isUserId: true
+});
 // search by idOnPlatform
 await r6api.findById('xbl', '2535406338711362');
 ```
@@ -232,12 +237,12 @@ await r6api.findById('uplay', '0b95544b-0228-49a7-b338-6d15cfbc3d6a');
     platform: 'uplay',
     username: 'Daniel.Nt',
     avatar: {
-      '146': 'https://ubisoft-avatars.akamaized.net/0b95544b-0228-49a7-b338-6d15cfbc3d6a/default_146_146.png',
-      '256': 'https://ubisoft-avatars.akamaized.net/0b95544b-0228-49a7-b338-6d15cfbc3d6a/default_256_256.png',
-      '500': 'https://ubisoft-avatars.akamaized.net/0b95544b-0228-49a7-b338-6d15cfbc3d6a/default_tall.png'
+      146: 'https://ubisoft-avatars.akamaized.net/0b95544b-0228-49a7-b338-6d15cfbc3d6a/default_146_146.png',
+      256: 'https://ubisoft-avatars.akamaized.net/0b95544b-0228-49a7-b338-6d15cfbc3d6a/default_256_256.png',
+      500: 'https://ubisoft-avatars.akamaized.net/0b95544b-0228-49a7-b338-6d15cfbc3d6a/default_tall.png'
     }
   }
-]
+];
 ```
 
 </details>
@@ -276,7 +281,7 @@ await r6api.getPlaytime('uplay', '0b95544b-0228-49a7-b338-6d15cfbc3d6a');
       general: 292574
     }
   }
-]
+];
 ```
 
 </details>
@@ -311,7 +316,7 @@ await r6api.getProgression('uplay', '0b95544b-0228-49a7-b338-6d15cfbc3d6a');
       percent: '8.20%'
     }
   }
-]
+];
 ```
 
 </details>
@@ -333,7 +338,7 @@ Ids limit: `200`
 
 | Param     | Type                           | Required | Default                                                     | Description                                                       |
 | --------- | ------------------------------ | -------- | ----------------------------------------------------------- | ----------------------------------------------------------------- |
-| seasonIds | `number \| number[] \| string` | false    | `-1`                                                        | Numbers from `6` to `27` or `-1` or `'all'`                       |
+| seasonIds | `number \| number[] \| string` | false    | `-1`                                                        | Numbers from `6` to `28` or `-1` or `'all'`                       |
 | regionIds | `string \| string[]`           | false    | `['emea', 'ncsa', 'apac']`                                  | `'emea'`, `'ncsa'`, `'apac'` or `'all'`                           |
 | boardIds  | `string \| string[]`           | false    | `['pvp_ranked', 'pvp_casual', 'pvp_newcomer', 'pvp_event']` | `'pvp_ranked'`, `'pvp_casual'`, `'pvp_newcomer'` or `'pvp_event'` |
 
@@ -345,19 +350,22 @@ Ids limit: `200`
 
 | ID   | Name           | ● | ID   | Name          |
 | ---- | -------------- | - | ---- | ------------- |
-| `6`  | Health         |   | `17` | Void Edge     |
-| `7`  | Blood Orchid   |   | `18` | Steel Wave    |
-| `8`  | White Noise    |   | `19` | Shadow Legacy |
-| `9`  | Chimera        |   | `20` | Neon Dawn     |
-| `10` | Para Bellum    |   | `21` | Crimson Heist |
-| `11` | Grim Sky       |   | `22` | North Star    |
-| `12` | Wind Bastion   |   | `23` | Crystal Guard |
-| `13` | Burnt Horizon  |   | `24` | High Calibre  |
-| `14` | Phantom Sight  |   | `25` | Demon Veil    |
-| `15` | Ember Rise     |   | `26` | Vector Glare  |
-| `16` | Shifting Tides |   | `27` | Brutal Swarm  |
+| `6`  | Health         |   | `18` | Steel Wave    |
+| `7`  | Blood Orchid   |   | `19` | Shadow Legacy |
+| `8`  | White Noise    |   | `20` | Neon Dawn     |
+| `9`  | Chimera        |   | `21` | Crimson Heist |
+| `10` | Para Bellum    |   | `22` | North Star    |
+| `11` | Grim Sky       |   | `23` | Crystal Guard |
+| `12` | Wind Bastion   |   | `24` | High Calibre  |
+| `13` | Burnt Horizon  |   | `25` | Demon Veil    |
+| `14` | Phantom Sight  |   | `26` | Vector Glare  |
+| `15` | Ember Rise     |   | `27` | Brutal Swarm  |
+| `16` | Shifting Tides |   | `28` | Solar Raid    |
+| `17` | Void Edge      |   |      |               |
 
 <!-- END_SECTION:SEASONS_TABLE -->
+
+> **Note:** Use `getUserSeasonalv2 for Solar Raid and beyond.
 
 > **Note:** `-1` will always return current season
 
@@ -390,13 +398,15 @@ Ids limit: `200`
 
 > **Note:** Returns empty array if `boardId` is `pvp_newcomer` and `seasonId` is `21` or above
 
-> **Note:** `topRankPosition` will always return `0` if board is *not* `'pvp_ranked'`
+> **Note:** `topRankPosition` will always return `0` if board is _not_ `'pvp_ranked'`
 
 > **Note:** Ubisoft doesn't provide data for seasons before Operation Health (6) if board is `pvp_ranked`, Ember Rise (15) if board is `pvp_casual`, Wind Bastion (12) if board is `pvp_event` or Shifting Tides (16) if board is `pvp_event`
 
-
 ```js
-await r6api.getRanks('uplay', '0b95544b-0228-49a7-b338-6d15cfbc3d6a', { regionIds: 'emea', boardIds: 'pvp_ranked' })
+await r6api.getRanks('uplay', '0b95544b-0228-49a7-b338-6d15cfbc3d6a', {
+  regionIds: 'emea',
+  boardIds: 'pvp_ranked'
+});
 ```
 
 <!-- START_SECTION:GETRANKS_OUTPUT -->
@@ -408,11 +418,12 @@ await r6api.getRanks('uplay', '0b95544b-0228-49a7-b338-6d15cfbc3d6a', { regionId
   {
     id: '0b95544b-0228-49a7-b338-6d15cfbc3d6a',
     seasons: {
-      '27': {
+      27: {
         seasonId: 27,
         seasonName: 'Brutal Swarm',
         seasonColor: '#dac925',
-        seasonImage: 'https://staticctf.akamaized.net/J3yJr34U2pZ2Ieem48Dwy9uqj5PNUQTn/35vqSFGr4xn1JnNVetTsyh/e9c46f34157897dc96988432991a1e52/r6s-seasons-y7s3__2_.jpg',
+        seasonImage:
+          'https://staticctf.akamaized.net/J3yJr34U2pZ2Ieem48Dwy9uqj5PNUQTn/35vqSFGr4xn1JnNVetTsyh/e9c46f34157897dc96988432991a1e52/r6s-seasons-y7s3__2_.jpg',
         seasonReleaseDate: '2022-09-06T00:00:00.000Z',
         regions: {
           emea: {
@@ -468,17 +479,271 @@ await r6api.getRanks('uplay', '0b95544b-0228-49a7-b338-6d15cfbc3d6a', { regionId
       }
     }
   }
-]
+];
 ```
 
 </details>
 <!-- END_SECTION:GETRANKS_OUTPUT -->
 
-> **Note:** `kills`, `deaths`, `kd`, `topRankPosition` and everything under `lastMatch` only available  for seasons including and after Phantom Sight (14) for older seasons it will return `0` or `'unknown'` in case of `lastMatch.result`
+> **Note:** `kills`, `deaths`, `kd`, `topRankPosition` and everything under `lastMatch` only available for seasons including and after Phantom Sight (14) for older seasons it will return `0` or `'unknown'` in case of `lastMatch.result`
 
 > **Note:** If player is unranked their max mmr (`max.mmr`) will always be `0` (it's always `0` for casual)
 
 > **Note:** Values for `previousMmr`, `nextMmr`, `topRankPosition`, `max.id` and `max.mmr` will always be `0`, `max.name` will always be `Unranked` if `boardId` is `pvp_casual`
+
+---
+
+### getUserSeasonalv2
+
+Get user seasonal v2
+
+```ts
+await r6api.getUserSeasonalv2('0b95544b-0228-49a7-b338-6d15cfbc3d6a');
+```
+
+<!-- START_SECTION:GETUSERSEASONALV2_OUTPUT -->
+<details>
+<summary>Output</summary>
+
+```js
+[
+  {
+    profileId: '0b95544b-0228-49a7-b338-6d15cfbc3d6a',
+    platformCrossplay: 'pc',
+    seasonId: 28,
+    boardSlug: 'casual',
+    rank: {
+      id: 0,
+      name: 'Unranked',
+      mmr: 0,
+      icon: 'https://github.com/danielwerg/r6api.js/raw/master/assets/ranks/v3/Unranked.png',
+      rp: 0
+    },
+    maxRank: {
+      id: 0,
+      name: 'Unranked',
+      mmr: 0,
+      icon: 'https://github.com/danielwerg/r6api.js/raw/master/assets/ranks/v3/Unranked.png',
+      rp: 0
+    },
+    topRankPosition: 0,
+    kills: 20,
+    deaths: 8,
+    kd: 2.5,
+    wins: 2,
+    losses: 0,
+    winRate: '100.00%',
+    abandons: 8,
+    matches: 10
+  },
+  {
+    profileId: '0b95544b-0228-49a7-b338-6d15cfbc3d6a',
+    platformCrossplay: 'pc',
+    seasonId: 28,
+    boardSlug: 'event',
+    rank: {
+      id: 0,
+      name: 'Unranked',
+      mmr: 0,
+      icon: 'https://github.com/danielwerg/r6api.js/raw/master/assets/ranks/v3/Unranked.png',
+      rp: 0
+    },
+    maxRank: {
+      id: 0,
+      name: 'Unranked',
+      mmr: 0,
+      icon: 'https://github.com/danielwerg/r6api.js/raw/master/assets/ranks/v3/Unranked.png',
+      rp: 0
+    },
+    topRankPosition: 0,
+    kills: 0,
+    deaths: 0,
+    kd: 0,
+    wins: 0,
+    losses: 0,
+    winRate: '0.00%',
+    abandons: 0,
+    matches: 0
+  },
+  {
+    profileId: '0b95544b-0228-49a7-b338-6d15cfbc3d6a',
+    platformCrossplay: 'pc',
+    seasonId: 28,
+    boardSlug: 'warmup',
+    rank: {
+      id: 0,
+      name: 'Unranked',
+      mmr: 0,
+      icon: 'https://github.com/danielwerg/r6api.js/raw/master/assets/ranks/v3/Unranked.png',
+      rp: 0
+    },
+    maxRank: {
+      id: 0,
+      name: 'Unranked',
+      mmr: 0,
+      icon: 'https://github.com/danielwerg/r6api.js/raw/master/assets/ranks/v3/Unranked.png',
+      rp: 0
+    },
+    topRankPosition: 0,
+    kills: 0,
+    deaths: 0,
+    kd: 0,
+    wins: 0,
+    losses: 0,
+    winRate: '0.00%',
+    abandons: 0,
+    matches: 0
+  },
+  {
+    profileId: '0b95544b-0228-49a7-b338-6d15cfbc3d6a',
+    platformCrossplay: 'pc',
+    seasonId: 28,
+    boardSlug: 'ranked',
+    rank: {
+      id: 0,
+      name: 'Unranked',
+      mmr: 1000,
+      icon: 'https://github.com/danielwerg/r6api.js/raw/master/assets/ranks/v3/Unranked.png',
+      rp: 1000
+    },
+    maxRank: {
+      id: 0,
+      name: 'Unranked',
+      mmr: 1000,
+      icon: 'https://github.com/danielwerg/r6api.js/raw/master/assets/ranks/v3/Unranked.png',
+      rp: 1000
+    },
+    topRankPosition: 0,
+    kills: 0,
+    deaths: 0,
+    kd: 0,
+    wins: 0,
+    losses: 0,
+    winRate: '0.00%',
+    abandons: 0,
+    matches: 0
+  },
+  {
+    profileId: '0b95544b-0228-49a7-b338-6d15cfbc3d6a',
+    platformCrossplay: 'console',
+    seasonId: 28,
+    boardSlug: 'casual',
+    rank: {
+      id: 0,
+      name: 'Unranked',
+      mmr: 0,
+      icon: 'https://github.com/danielwerg/r6api.js/raw/master/assets/ranks/v3/Unranked.png',
+      rp: 0
+    },
+    maxRank: {
+      id: 0,
+      name: 'Unranked',
+      mmr: 0,
+      icon: 'https://github.com/danielwerg/r6api.js/raw/master/assets/ranks/v3/Unranked.png',
+      rp: 0
+    },
+    topRankPosition: 0,
+    kills: 0,
+    deaths: 0,
+    kd: 0,
+    wins: 0,
+    losses: 0,
+    winRate: '0.00%',
+    abandons: 0,
+    matches: 0
+  },
+  {
+    profileId: '0b95544b-0228-49a7-b338-6d15cfbc3d6a',
+    platformCrossplay: 'console',
+    seasonId: 28,
+    boardSlug: 'event',
+    rank: {
+      id: 0,
+      name: 'Unranked',
+      mmr: 0,
+      icon: 'https://github.com/danielwerg/r6api.js/raw/master/assets/ranks/v3/Unranked.png',
+      rp: 0
+    },
+    maxRank: {
+      id: 0,
+      name: 'Unranked',
+      mmr: 0,
+      icon: 'https://github.com/danielwerg/r6api.js/raw/master/assets/ranks/v3/Unranked.png',
+      rp: 0
+    },
+    topRankPosition: 0,
+    kills: 0,
+    deaths: 0,
+    kd: 0,
+    wins: 0,
+    losses: 0,
+    winRate: '0.00%',
+    abandons: 0,
+    matches: 0
+  },
+  {
+    profileId: '0b95544b-0228-49a7-b338-6d15cfbc3d6a',
+    platformCrossplay: 'console',
+    seasonId: 28,
+    boardSlug: 'warmup',
+    rank: {
+      id: 0,
+      name: 'Unranked',
+      mmr: 0,
+      icon: 'https://github.com/danielwerg/r6api.js/raw/master/assets/ranks/v3/Unranked.png',
+      rp: 0
+    },
+    maxRank: {
+      id: 0,
+      name: 'Unranked',
+      mmr: 0,
+      icon: 'https://github.com/danielwerg/r6api.js/raw/master/assets/ranks/v3/Unranked.png',
+      rp: 0
+    },
+    topRankPosition: 0,
+    kills: 0,
+    deaths: 0,
+    kd: 0,
+    wins: 0,
+    losses: 0,
+    winRate: '0.00%',
+    abandons: 0,
+    matches: 0
+  },
+  {
+    profileId: '0b95544b-0228-49a7-b338-6d15cfbc3d6a',
+    platformCrossplay: 'console',
+    seasonId: 28,
+    boardSlug: 'ranked',
+    rank: {
+      id: 0,
+      name: 'Unranked',
+      mmr: 1000,
+      icon: 'https://github.com/danielwerg/r6api.js/raw/master/assets/ranks/v3/Unranked.png',
+      rp: 1000
+    },
+    maxRank: {
+      id: 0,
+      name: 'Unranked',
+      mmr: 1000,
+      icon: 'https://github.com/danielwerg/r6api.js/raw/master/assets/ranks/v3/Unranked.png',
+      rp: 1000
+    },
+    topRankPosition: 0,
+    kills: 0,
+    deaths: 0,
+    kd: 0,
+    wins: 0,
+    losses: 0,
+    winRate: '0.00%',
+    abandons: 0,
+    matches: 0
+  }
+];
+```
+
+</details>
+<!-- END_SECTION:GETUSERSEASONALV2_OUTPUT -->
 
 ---
 
@@ -549,7 +814,7 @@ await r6api.getStats('uplay', '0b95544b-0228-49a7-b338-6d15cfbc3d6a');
       modes: [Object]
     }
   }
-]
+];
 ```
 
 </details>
@@ -644,7 +909,7 @@ await r6api.getStatus();
     maintenance: null,
     impactedFeatures: []
   }
-]
+];
 ```
 
 </details>
@@ -688,7 +953,7 @@ await r6api.getUserStatus('0b95544b-0228-49a7-b338-6d15cfbc3d6a');
     applications: [],
     manuallySet: null
   }
-]
+];
 ```
 
 </details>
@@ -747,7 +1012,7 @@ await r6api.getProfileApplications('0b95544b-0228-49a7-b338-6d15cfbc3d6a');
       },
       {
         id: 'a427a342-56bb-437b-b835-fa695c75893b',
-        name: 'Tom Clancy\'s Rainbow Six Siege - Test Server',
+        name: "Tom Clancy's Rainbow Six Siege - Test Server",
         platform: 'PC',
         sessionsPlayed: 137,
         daysPlayed: 72,
@@ -756,7 +1021,7 @@ await r6api.getProfileApplications('0b95544b-0228-49a7-b338-6d15cfbc3d6a');
       },
       {
         id: 'e3d5ea9e-50bd-43b7-88bf-39794f4e3d40',
-        name: 'Tom Clancy\'s Rainbow Six Siege',
+        name: "Tom Clancy's Rainbow Six Siege",
         platform: 'PC',
         sessionsPlayed: 2344,
         daysPlayed: 1221,
@@ -774,7 +1039,7 @@ await r6api.getProfileApplications('0b95544b-0228-49a7-b338-6d15cfbc3d6a');
       }
     ]
   }
-]
+];
 ```
 
 </details>
@@ -802,11 +1067,11 @@ await r6api.getApplications('e3d5ea9e-50bd-43b7-88bf-39794f4e3d40');
 [
   {
     id: 'e3d5ea9e-50bd-43b7-88bf-39794f4e3d40',
-    name: 'Tom Clancy\'s Rainbow Six Siege',
+    name: "Tom Clancy's Rainbow Six Siege",
     platform: 'PC',
     spaceId: '5172a557-50b5-4665-b7db-e3f2e8c5041d'
   }
-]
+];
 ```
 
 </details>
@@ -886,7 +1151,7 @@ await r6api.getNews({ limit: 1 });
 
 ```js
 {
-  total: 746,
+  total: 771,
   limit: 1,
   categories: 'all',
   media: 'all',
@@ -898,29 +1163,24 @@ await r6api.getNews({ limit: 1 });
   ],
   items: [
     {
-      id: '3487NcAXKzJKRZPnFxzUxT',
-      title: 'New Rainbow Six Siege Streamer Charms for Y7S3!',
-      abstract: 'Announcing the next Y7S3 Streamer Charms!',
+      id: '3XYWbFClpxnuEiNBmrF3zl',
+      title: 'RAINBOW SIX SIEGE HOLIDAY PACK 2022',
+      abstract: 'Happy Holidays from the Rainbow Six Siege team!  ',
       thumbnail: {
-        url: 'https://staticctf.akamaized.net/J3yJr34U2pZ2Ieem48Dwy9uqj5PNUQTn/33y0EfDYEFXvwpYwHxCstg/ccc5877c39f67d8ae6d952a6f05c2fea/Y7S3.StreamerCharms1.Header.png',
+        url: 'https://staticctf.akamaized.net/J3yJr34U2pZ2Ieem48Dwy9uqj5PNUQTn/6GBH9GZennq2REUcKWSrEU/01653a2f124e74b2c12fbcc25cbe8f71/R6S_Blogpost_2022-12_Holiday_Pack.jpg',
         description: ''
       },
-      content: '## Announcing the next Streamer Charms!\n\nEach season will bring the release of new charms, as well as a return of the streamer’s charms from previous seasons!\n\n# New\n\n![[R6S] News Article - Y7S2 Streamer Charms 06062022](//staticctf.akamaized.net/J3yJr34U2pZ2Ieem48Dwy9uqj5PNUQTn/33y0EfDYEFXvwpYwHxCstg/774713452fd967ac228e66f8adac7c9f/Y7S3.StreamerCharms1.Header.png)\n\n[FoxA](https://www.twitch.tv/foxa_r6)\n\n[Nerdengenheiro](https://www.twitch.tv/nerdengenheiro)\n\n[Rainbow6itacom](https://www.twitch.tv/rainbow6itacom)\n\n[Minimichegga](https://www.twitch.tv/minimichegga)\n\n## Returning\n\n![[R6S][News] New Rainbow Six Siege Streamer Charms For Y7S2 2 - August 2022](//staticctf.akamaized.net/J3yJr34U2pZ2Ieem48Dwy9uqj5PNUQTn/7ulCfEF4hIixzp6M6gGVD0/c8b65a32aab94a569d7fc02ec49f96be/Y7S3.StreamerCharms2.png)     \n![[R6S][News] New Rainbow Six Siege Streamer Charms For Y7S2 - Streamer Charms 3 updated](//staticctf.akamaized.net/J3yJr34U2pZ2Ieem48Dwy9uqj5PNUQTn/7qhtatztRolj1nvlXeOFoQ/133149e6bf44b3ad79e62c9c9b31214e/Y7S3.StreamerCharms3_Updated.png)      \n![[R6S][News] New Rainbow Six Siege Streamer Charms For Y7S2 4 - August 2022](//staticctf.akamaized.net/J3yJr34U2pZ2Ieem48Dwy9uqj5PNUQTn/2ZvGGaoBDvhtVhMExoobdC/d326148508e58577eb24097fb137616e/Y7S3.StreamerCharms4.png)\n\n[Ad9m](https://www.twitch.tv/ad9m)\n[Alfredoplays](https://www.twitch.tv/alfredoplays)\n[AnneMunition](https://www.twitch.tv/annemunition)\n[Beaulo](https://www.twitch.tv/beaulo)\n[Bighead](https://www.twitch.tv/bighead033)\n[BikiniBodhi](https://www.twitch.tv/bikinibodhi)\n[Bnans](https://www.twitch.tv/bnans)\n[Braction](https://www.twitch.tv/bractionfps)\n[CCSesports](https://www.twitch.tv/ccsesports)\n[Drid](https://www.twitch.tv/dridgg) \n[FastAnne](https://www.twitch.tv/fastanne)\n[Gabbo](https://www.twitch.tv/JustGabbo)\n[Galadriex](https://www.twitch.tv/galadriex)\n[Get_Flanked](https://www.twitch.tv/GetFlanked)\n[Heideltraut](https://www.twitch.tv/heideltraut)\n[Interro](https://www.twitch.tv/interro)\n[JerichoFive](https://www.twitch.tv/jerichofive)\n[JessGOAT](https://www.twitch.tv/jessgoat)\n[Jynxzi](https://www.twitch.tv/jynxzi)\n[Just9n](https://www.twitch.tv/just9n)\n[Kalera](https://www.twitch.tv/Kalera)\n[KingGeorge](https://www.twitch.tv/KingGeorge)\n[KittyR6](https://www.twitch.tv/kitty_r6)\n[LagonisR6](https://www.twitch.tv/lagonis)\n[Lil_Lexi](https://www.twitch.tv/lil_lexi)\n[Lt Custard](https://www.twitch.tv/lt_custard)\n[Lusorkoeffizient](https://www.twitch.tv/lusorkoeffizient)\n[MacieJay](https://www.twitch.tv/MacieJay)\n[Mag6](https://www.twitch.tv/mag6)\n[M3RYLAND](https://www.twitch.tv/M3RYLAND)\n[Matimi0](https://www.twitch.tv/matimi0)\n[MrBboy45](https://www.twitch.tv/mrbboy45)\n[Narcoleptic Nugget](https://www.twitch.tv/narcolepticnugget)\n[Nesk](https://www.twitch.tv/neskwga)\n[PaladinAmber](https://www.twitch.tv/paladinamber)\n[Patife](https://www.twitch.tv/patife)\n[Pengu](https://www.twitch.tv/pengu)\n[Punjistick](https://www.twitch.tv/punjistick)\n[RazaH](https://www.twitch.tv/razah)\n[REMGURI / 렘쨩](https://www.twitch.tv/remguri)\n[Rubsarb](https://www.twitch.tv/Rubsarb/)\n[SexyCake](https://www.twitch.tv/smexycake)\n[Sha77e](https://www.twitch.tv/sha77etv)\n[Shorty](https://www.twitch.tv/shortyyguy)\n[shroud](https://www.twitch.tv/shroud)\n[SilphTV](https://www.twitch.tv/silphtv)\n[Sixquatre](https://www.twitch.tv/sixquatre)\n[TangyD](https://www.twitch.tv/tangyd)\n[Tatted](https://www.twitch.tv/tatted)\n[Thaqil](https://www.twitch.tv/thaqil)\n[Tranth](https://www.twitch.tv/tranth)\n[Varsity](https://www.twitch.tv/varsitygaming)\n[WhiteShark67](https://www.twitch.tv/whiteshark67)\n[yo_boy_roy](https://www.twitch.tv/yo_boy_roy)\n[z1ronic](https://www.twitch.tv/zironicdk)\n[Zander](https://www.twitch.tv/zander)\n[ziGueira](https://www.twitch.tv/zigueira)\n[GarfieldIsDoc](https://www.twitch.tv/garfield)\n[Supr](https://www.twitch.tv/supr)\n[RyyFyy](https://www.twitch.tv/ryyfyy)\n[GCGamerOficial](https://www.twitch.tv/gcgameroficial)\n\n## How to acquire charms\n\nThese charms are only available by subscribing to the respective streamer’s Twitch channel with a linked Ubisoft account. For more information on how to link your Ubisoft and Twitch account, as well as opt in for Twitch Drops, please refer to [this FAQ](https://support.ubi.com/Faqs/000035432/Get-your-Twitch-Streamer-s-charm).\n\n## How to get involved\n\nWe are always on the lookout for additional content creators to add to the program. If your goal is to see your charm in game, we use the following criteria to begin the selection process for potential candidates:\n\nThis is an evolving program so to reflect this, the following requirements have been adjusted.\n\n__Requirements to be considered__\n-	Approximately 150+ concurrent viewers.\n-	Average of 10 Rainbow Six streams per month.\n-	Average of 20 hours of Rainbow Six streamed per month.\n-	Positive standing with Ubisoft/Rainbow Six Siege.\n-	High quality level of content.\n-	Twitch Partnered.\n-	Rainbow Six Siege reserves the right for final decision.\n\n__Consideration for Removal__\n-	Less than 10 Rainbow Six Siege main streams over 3 months.\n-	Level of quality dropping below an acceptable level.\n- 	Standing with Rainbow Six Siege/Ubisoft compromised.\n-	Any actions that may negatively affect the R6S/Ubisoft brand.\n-	Loss of Twitch Partnership.\n-	Rainbow Six Siege reserves the right for removal of any charms.',
+      content: 'It\'s that time of the year again - Happy Holidays from the Rainbow Six Siege team!  \n\nTo celebrate the festive season, we have a special surprise for you: \n\nEvery player connecting to the game __between December 22nd, 2022, and January 3rd, 2023,__ will be awarded a free Holiday Pack! \n\nThe Holiday Pack will be accessible in the Pack section on the home screen. Once activated, players will receive one free Operator from Year 1-7. This Operator will be randomly selected and will not include any Operators that the player has already unlocked.  \n\nThose who already own all Operators will receive a brand-new free headgear and uniform for the Operator Ying, as well as a brand-new signature weapon skin - holiday-themed of course! \n\nWe hope you enjoy this little gift from the team, and we wish you a great start to the new year.',
       description: undefined,
       categories: [
-        'news',
-        'game-updates',
-        'rainbow-six',
         'rainbow-six-siege'
       ],
       tag: 'BR-rainbow-six GA-siege',
-      placement: [
-        'featured-news-article'
-      ],
+      placement: null,
       type: 'news',
-      readTime: 2,
-      url: 'https://www.ubisoft.com/en-gb/game/rainbow-six/siege/news-updates/3487NcAXKzJKRZPnFxzUxT/new-rainbow-six-siege-streamer-charms-for-y7s3',
-      date: 'Fri Sep 02 2022 16:45:00 GMT+0000 (Coordinated Universal Time)'
+      readTime: 1,
+      url: 'https://www.ubisoft.com/en-gb/game/rainbow-six/siege/news-updates/3XYWbFClpxnuEiNBmrF3zl/rainbow-six-siege-holiday-pack-2022',
+      date: 'Thu Dec 22 2022 17:00:00 GMT+0000 (Coordinated Universal Time)'
     }
   ]
 }
@@ -1007,7 +1267,8 @@ Useful if you're familiar with Rainbow Six Siege's API; this method will make a 
 ```js
 await r6api.custom(
   utils.URLS.STATS(
-    'uplay', ['0b95544b-0228-49a7-b338-6d15cfbc3d6a'],
+    'uplay',
+    ['0b95544b-0228-49a7-b338-6d15cfbc3d6a'],
     'operatorpvp_clash_sloweddown'
   )
 );
@@ -1040,7 +1301,7 @@ For a full list of supporting IDEs, please see [here](https://github.com/Microso
 If you're coding in TypeScript you can also import the typings and use the type-checking functions provided in the utils.
 
 ```ts
-import R6API, { utils, typings, constants } from 'r6api.js'
+import R6API, { utils, typings, constants } from 'r6api.js';
 
 const yourVar = 'r4-c'; // any
 

@@ -1,13 +1,13 @@
 import { RequestInit, Response } from 'node-fetch';
 import nodeFetch from 'make-fetch-happen';
 
-import { ubiAppId } from './auth';
+import { IUbiAuth, ubiAppId } from './auth';
 
 const promiseTimeout = <T>(promise: Promise<T>, ms: number, reject = true) =>
   Promise.race([promise, new Promise((res, rej) => setTimeout(() => reject ? rej : res, ms))]);
 
 export default <T>(url: string, options: Partial<RequestInit> = {}) =>
-  async (token?: string): Promise<T> => {
+  async (token?: string, auth?: IUbiAuth): Promise<T> => {
 
     const { headers, ...optionsRest } = options;
 
@@ -20,7 +20,10 @@ export default <T>(url: string, options: Partial<RequestInit> = {}) =>
             'Content-Type': 'application/json; charset=UTF-8',
             'Ubi-AppId': ubiAppId,
             ...token && { 'Authorization': token },
-            ...headers && { ...headers }
+            ...headers && { ...headers },
+            ...auth && {
+              'Ubi-SessionId': auth.sessionId
+            }
           }
         },
         ...optionsRest && { ...optionsRest }
