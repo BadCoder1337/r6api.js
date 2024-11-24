@@ -1,0 +1,15 @@
+node_modules
+private
+dist
+.env
+*.log
+test*
+package-lock.json
+
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
