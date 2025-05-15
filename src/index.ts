@@ -1,3 +1,5 @@
+import { HttpProxyAgent } from 'http-proxy-agent';
+
 import {
   getAuth as _getAuth,
   getTicket as _getTicket,
@@ -7,19 +9,23 @@ import {
   setAuthFileDirPath as _setAuthFileDirPath,
   setAuthFileName as _setAuthFileName,
   setAuthFilePath as _setAuthFilePath,
-  getAuthFilePath as _getAuthFilePath
+  getAuthFilePath as _getAuthFilePath,
+  setAgent as _setAgent
 } from './auth';
 import _findByUsername from './methods/findByUsername';
-import _findById, { IOptions as IFindByIdOptions} from './methods/findById';
+import _findById, { IOptions as IFindByIdOptions } from './methods/findById';
 import _getProgression from './methods/getProgression';
 import _getPlaytime from './methods/getPlaytime';
 import _getRanks, { IOptions as IGetRanksOptions } from './methods/getRanks';
 import _getUserSeasonalv2 from './methods/getUserSeasonalv2';
 import _getStats, { IOptions as IGetStatsOptions } from './methods/getStats';
 import _getStatus from './methods/getStatus';
-import _getUserStatus, { IOptions as IGetUserStatusOptions } from './methods/getUserStatus';
-import _getProfileApplications, { IOptions as IGetProfileApplicationsOptions }
-  from './methods/getProfileApplications';
+import _getUserStatus, {
+  IOptions as IGetUserStatusOptions
+} from './methods/getUserStatus';
+import _getProfileApplications, {
+  IOptions as IGetProfileApplicationsOptions
+} from './methods/getProfileApplications';
 import _getApplications from './methods/getApplications';
 import _validateUsername from './methods/validateUsername';
 import _custom from './methods/custom';
@@ -33,7 +39,11 @@ export * as constants from './constants';
 export * as utils from './utils';
 
 const checkQueryLimit = <T extends (...args: any) => any>({
-  method, platform, query, options, limit
+  method,
+  platform,
+  query,
+  options,
+  limit
 }: {
   method: T;
   platform?: PlatformAllExtended;
@@ -46,14 +56,16 @@ const checkQueryLimit = <T extends (...args: any) => any>({
     return Promise.reject(
       new TypeError(`You can't pass more than ${limit} ids/usernames`)
     ) as ReturnType<T>;
-  return platform ? method(platform, queryArray, options) : method(queryArray, options);
+  return platform
+    ? method(platform, queryArray, options)
+    : method(queryArray, options);
 };
 
 type QueryUUID = UUID | UUID[];
 type QueryString = string | string[];
 
 export default class R6API {
-
+  proxyAgent?: HttpProxyAgent;
   constructor(options: {
     email?: string;
     password?: string;
@@ -61,12 +73,15 @@ export default class R6API {
     authFileDirPath?: string;
     authFileName?: string;
     authFilePath?: string;
+    proxy?: string;
   }) {
-    if (options.email && options.password) _setCredentials(options.email, options.password);
+    if (options.email && options.password)
+      _setCredentials(options.email, options.password);
     if (options.ubiAppId) _setUbiAppId(options.ubiAppId);
     if (options.authFileDirPath) _setAuthFileDirPath(options.authFileDirPath);
     if (options.authFileName) _setAuthFileName(options.authFileName);
     if (options.authFilePath) _setAuthFilePath(options.authFilePath);
+    if (options.proxy) _setAgent(new HttpProxyAgent(options.proxy));
   }
 
   /** Find player by their username. */
@@ -75,57 +90,86 @@ export default class R6API {
 
   /** Find player by their id. */
   findById = (
-    platform: PlatformAllExtended, query: QueryUUID | QueryString, options?: IFindByIdOptions
+    platform: PlatformAllExtended,
+    query: QueryUUID | QueryString,
+    options?: IFindByIdOptions
   ) =>
-    checkQueryLimit({ method: _findById, platform, query, options, limit: 50 })
+    checkQueryLimit({ method: _findById, platform, query, options, limit: 50 });
 
   /** Get playtime of a player. */
   getPlaytime = (platform: Platform, query: QueryUUID) =>
-    checkQueryLimit({ method: _getPlaytime, platform, query, limit: 200 })
+    checkQueryLimit({ method: _getPlaytime, platform, query, limit: 200 });
 
   /** Get level, xp and alpha pack drop chance of a player. */
   getProgression = (platform: Platform, query: QueryUUID) =>
-    checkQueryLimit({ method: _getProgression, platform, query, limit: 200 })
+    checkQueryLimit({ method: _getProgression, platform, query, limit: 200 });
 
   /** Get seasonal stats of a player. */
-  getRanks = (platform: Platform, query: QueryUUID, options?: IGetRanksOptions) =>
-    checkQueryLimit({ method: _getRanks, platform, query, options, limit: 200 })
+  getRanks = (
+    platform: Platform,
+    query: QueryUUID,
+    options?: IGetRanksOptions
+  ) =>
+    checkQueryLimit({
+      method: _getRanks,
+      platform,
+      query,
+      options,
+      limit: 200
+    });
 
   getUserSeasonalv2 = (query: QueryUUID) =>
-    checkQueryLimit({ method: _getUserSeasonalv2, query, limit: 200 })
+    checkQueryLimit({ method: _getUserSeasonalv2, query, limit: 200 });
 
   /** Get summary stats of a player. */
-  getStats = (platform: Platform, query: QueryUUID, options?: IGetStatsOptions) =>
-    checkQueryLimit({ method: _getStats, platform, query, options, limit: 200 })
+  getStats = (
+    platform: Platform,
+    query: QueryUUID,
+    options?: IGetStatsOptions
+  ) =>
+    checkQueryLimit({
+      method: _getStats,
+      platform,
+      query,
+      options,
+      limit: 200
+    });
 
   /** Get Rainbow Six: Siege servers status. */
-  getStatus = _getStatus
+  getStatus = _getStatus;
   /** Get status of a player. */
   getUserStatus = (query: QueryUUID, options?: IGetUserStatusOptions) =>
-    checkQueryLimit({ method: _getUserStatus, query, options, limit: 50 })
+    checkQueryLimit({ method: _getUserStatus, query, options, limit: 50 });
   /** Get information about applications of a player. */
-  getProfileApplications = (query: QueryUUID, options?: IGetProfileApplicationsOptions) =>
-    checkQueryLimit({ method: _getProfileApplications, query, options, limit: 100 })
+  getProfileApplications = (
+    query: QueryUUID,
+    options?: IGetProfileApplicationsOptions
+  ) =>
+    checkQueryLimit({
+      method: _getProfileApplications,
+      query,
+      options,
+      limit: 100
+    });
   /** Get information about applications. */
   getApplications = (query: QueryUUID) =>
-    checkQueryLimit({ method: _getApplications, query, limit: 50 })
+    checkQueryLimit({ method: _getApplications, query, limit: 50 });
   /** Validate username. */
-  validateUsername = _validateUsername
+  validateUsername = _validateUsername;
   /** Useful if you're familiar with Rainbow Six Siege's API; this method will make a request to a custom URL you would provide with the token in the header. */
-  custom = _custom
+  custom = _custom;
   /** Get Rainbow Six: Siege News. */
-  getNews = _getNews
+  getNews = _getNews;
   /** Get Rainbow Six: Siege News by ID. */
-  getNewsById = _getNewsById
+  getNewsById = _getNewsById;
 
-  getAuth = _getAuth
-  getTicket = _getTicket
-  getToken = _getToken
-  setCredentials = _setCredentials
-  setUbiAppId = _setUbiAppId
-  setAuthFileDirPath = _setAuthFileDirPath
-  setAuthFileName = _setAuthFileName
-  setAuthFilePath = _setAuthFilePath
-  getAuthFilePath = _getAuthFilePath
-
+  getAuth = _getAuth;
+  getTicket = _getTicket;
+  getToken = _getToken;
+  setCredentials = _setCredentials;
+  setUbiAppId = _setUbiAppId;
+  setAuthFileDirPath = _setAuthFileDirPath;
+  setAuthFileName = _setAuthFileName;
+  setAuthFilePath = _setAuthFilePath;
+  getAuthFilePath = _getAuthFilePath;
 }

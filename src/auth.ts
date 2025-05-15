@@ -1,6 +1,7 @@
 import { tmpdir } from 'os';
 import { join } from 'path';
 import { promises as fs } from 'fs';
+import { Agent } from 'http';
 
 import fetch from './fetch';
 import { Platform, UUID } from './typings';
@@ -32,23 +33,27 @@ export let ubiAppId = defaultUbiAppId;
 let authFileDirPath = tmpdir();
 let authFileName = 'r6api.js-auth.json';
 let authFilePath: null | string = null;
+export let agent: Agent = new Agent({ keepAlive: true });
 
 const getExpiration = (auth: IUbiAuth) =>
   +new Date(auth.expiration) - +new Date() - TEN_MIN_IN_MS;
 
 export const login = async () => {
-
-  const lastAuth: IUbiAuth = await fs.readFile(getAuthFilePath(), 'utf8')
-    .then((auth) => JSON.parse(auth))
+  const lastAuth: IUbiAuth = await fs
+    .readFile(getAuthFilePath(), 'utf8')
+    .then(auth => JSON.parse(auth))
     .catch(() => '');
   if (lastAuth && getExpiration(lastAuth) > 0) {
     setNextLogin(lastAuth);
     return lastAuth;
   }
 
-  const token = 'Basic ' + Buffer
-    .from(`${credentials.email}:${credentials.password}`, 'utf8')
-    .toString('base64');
+  const token =
+    'Basic ' +
+    Buffer.from(
+      `${credentials.email}:${credentials.password}`,
+      'utf8'
+    ).toString('base64');
 
   return fetch<IUbiAuth>(getURL.LOGIN(), {
     method: 'POST',
@@ -58,8 +63,7 @@ export const login = async () => {
       if (res && res.ticket && res.expiration) {
         await fs.writeFile(getAuthFilePath(), JSON.stringify(res));
         return res;
-      } else
-        throw new Error(`No response from login: ${JSON.stringify(res)}`);
+      } else throw new Error(`No response from login: ${JSON.stringify(res)}`);
     })
     .catch(err => {
       clearTimeout(LOGIN_TIMEOUT);
@@ -80,9 +84,22 @@ export const setCredentials = (email: string, password: string) => {
   credentials.email = email;
   credentials.password = password;
 };
-export const setUbiAppId = (_ubiAppId: string) => { ubiAppId = _ubiAppId; };
+export const setUbiAppId = (_ubiAppId: string) => {
+  ubiAppId = _ubiAppId;
+};
 
-export const setAuthFileDirPath = (path: string) => { authFileDirPath = path; };
-export const setAuthFileName = (name: string) => { authFileName = `${name}.json`; };
-export const setAuthFilePath = (path: string) => { authFilePath = path; };
-export const getAuthFilePath = () => authFilePath || join(authFileDirPath, authFileName);
+export const setAuthFileDirPath = (path: string) => {
+  authFileDirPath = path;
+};
+export const setAuthFileName = (name: string) => {
+  authFileName = `${name}.json`;
+};
+export const setAuthFilePath = (path: string) => {
+  authFilePath = path;
+};
+export const getAuthFilePath = () =>
+  authFilePath || join(authFileDirPath, authFileName);
+
+export const setAgent = (_agent: Agent) => {
+  agent = _agent;
+};

@@ -1,7 +1,7 @@
 import { RequestInit, Response } from 'node-fetch';
-import nodeFetch from 'make-fetch-happen';
+import nodeFetch from 'node-fetch';
 
-import { IUbiAuth, ubiAppId } from './auth';
+import { IUbiAuth, ubiAppId, agent } from './auth';
 
 const promiseTimeout = <T>(promise: Promise<T>, ms: number, reject = true) =>
   Promise.race([
@@ -13,7 +13,6 @@ export default <T>(url: string, options: Partial<RequestInit> = {}) =>
   async (token?: string, auth?: IUbiAuth): Promise<T> => {
     const { headers, ...optionsRest } = options;
 
-    // @ts-expect-error incompatible types
     const response = await nodeFetch(url, {
       ...{
         method: 'GET',
@@ -25,7 +24,8 @@ export default <T>(url: string, options: Partial<RequestInit> = {}) =>
           ...(auth && {
             'Ubi-SessionId': auth.sessionId
           })
-        }
+        },
+        agent
       },
       ...(optionsRest && { ...optionsRest })
     });
@@ -50,6 +50,5 @@ export default <T>(url: string, options: Partial<RequestInit> = {}) =>
       }
     };
 
-    // @ts-expect-error incompatible types
     return promiseTimeout(handleResponse(response), 10000) as Promise<T>;
   };

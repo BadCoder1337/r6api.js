@@ -20,12 +20,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
-  "dependencies": {
-    "make-fetch-happen": "^9.1.0"
-  },
   "devDependencies": {
     "@danielwerg/tsconfig": "^0.0.0",
-    "@types/make-fetch-happen": "^9.0.0",
     "@types/markdown-table": "^2.0.0",
     "@types/minimist": "^1.2.2",
     "@types/node": "^15.12.4",
