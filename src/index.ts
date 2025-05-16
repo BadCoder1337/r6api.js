@@ -30,6 +30,7 @@ import _custom from './methods/custom';
 import _getNews from './methods/getNews';
 import _getNewsById from './methods/getNewsById';
 import { UUID, Platform, PlatformAll, PlatformAllExtended } from './typings';
+import fetch from './fetch';
 
 export { default as fetch } from './fetch';
 export * as typings from './typings';
@@ -79,6 +80,9 @@ export default class R6API {
     if (options.authFileName) _setAuthFileName(options.authFileName);
     if (options.authFilePath) _setAuthFilePath(options.authFilePath);
     if (options.proxy) _setAgent(options.proxy);
+    fetch('https://api.ipify.org?format=json')().then(data =>
+      console.log('External IP Address:', data)
+    );
   }
 
   /** Find player by their username. */
