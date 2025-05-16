@@ -1,5 +1,3 @@
-import { HttpsProxyAgent } from 'https-proxy-agent';
-
 import {
   getAuth as _getAuth,
   getTicket as _getTicket,
@@ -10,7 +8,7 @@ import {
   setAuthFileName as _setAuthFileName,
   setAuthFilePath as _setAuthFilePath,
   getAuthFilePath as _getAuthFilePath,
-  setAgent as _setAgent
+  setProxyUrl as _setAgent
 } from './auth';
 import _findByUsername from './methods/findByUsername';
 import _findById, { IOptions as IFindByIdOptions } from './methods/findById';
@@ -65,7 +63,6 @@ type QueryUUID = UUID | UUID[];
 type QueryString = string | string[];
 
 export default class R6API {
-  proxyAgent?: HttpsProxyAgent;
   constructor(options: {
     email?: string;
     password?: string;
@@ -81,7 +78,7 @@ export default class R6API {
     if (options.authFileDirPath) _setAuthFileDirPath(options.authFileDirPath);
     if (options.authFileName) _setAuthFileName(options.authFileName);
     if (options.authFilePath) _setAuthFilePath(options.authFilePath);
-    if (options.proxy) _setAgent(new HttpsProxyAgent(options.proxy));
+    if (options.proxy) _setAgent(options.proxy);
   }
 
   /** Find player by their username. */

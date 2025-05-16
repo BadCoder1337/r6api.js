@@ -1,7 +1,8 @@
+import { ProxyAgent } from 'undici';
+
 import { tmpdir } from 'os';
 import { join } from 'path';
 import { promises as fs } from 'fs';
-import { Agent } from 'https';
 
 import fetch from './fetch';
 import { Platform, UUID } from './typings';
@@ -33,7 +34,7 @@ export let ubiAppId = defaultUbiAppId;
 let authFileDirPath = tmpdir();
 let authFileName = 'r6api.js-auth.json';
 let authFilePath: null | string = null;
-export let agent: Agent = new Agent({ keepAlive: true });
+export let proxyAgent: ProxyAgent | undefined;
 
 const getExpiration = (auth: IUbiAuth) =>
   +new Date(auth.expiration) - +new Date() - TEN_MIN_IN_MS;
@@ -100,6 +101,6 @@ export const setAuthFilePath = (path: string) => {
 export const getAuthFilePath = () =>
   authFilePath || join(authFileDirPath, authFileName);
 
-export const setAgent = (_agent: Agent) => {
-  agent = _agent;
+export const setProxyUrl = (url: string) => {
+  proxyAgent = new ProxyAgent(url);
 };

@@ -56,5 +56,8 @@
     "url": "https://github.com/danielwerg/r6api.js/issues"
   },
   "homepage": "https://github.com/danielwerg/r6api.js#readme",
-  "runkitExampleFilename": "./examples/runkit.js"
+  "runkitExampleFilename": "./examples/runkit.js",
+  "dependencies": {
+    "undici": "^7.9.0"
+  }
 }

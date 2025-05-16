@@ -1,7 +1,6 @@
-import { RequestInit, Response } from 'node-fetch';
-import nodeFetch from 'node-fetch';
+import { RequestInit, Response, fetch } from 'undici';
 
-import { IUbiAuth, ubiAppId, agent } from './auth';
+import { IUbiAuth, ubiAppId, proxyAgent } from './auth';
 
 const promiseTimeout = <T>(promise: Promise<T>, ms: number, reject = true) =>
   Promise.race([
@@ -13,7 +12,7 @@ export default <T>(url: string, options: Partial<RequestInit> = {}) =>
   async (token?: string, auth?: IUbiAuth): Promise<T> => {
     const { headers, ...optionsRest } = options;
 
-    const response = await nodeFetch(url, {
+    const response = await fetch(url, {
       ...{
         method: 'GET',
         headers: {
@@ -24,10 +23,10 @@ export default <T>(url: string, options: Partial<RequestInit> = {}) =>
           ...(auth && {
             'Ubi-SessionId': auth.sessionId
           })
-        },
-        agent
+        }
       },
-      ...(optionsRest && { ...optionsRest })
+      ...(optionsRest && { ...optionsRest }),
+      dispatcher: proxyAgent
     });
 
     const handleResponse = async (res: Response) => {
