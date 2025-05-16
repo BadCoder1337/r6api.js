@@ -49,5 +49,17 @@ export default <T>(url: string, options: Partial<RequestInit> = {}) =>
       }
     };
 
-    return promiseTimeout(handleResponse(response), 10000) as Promise<T>;
+    return promiseTimeout(
+      handleResponse(response).catch(err => {
+        if (
+          err instanceof Error &&
+          err.message.includes('Too many calls per IP address.')
+        ) {
+          console.error(err);
+          process.exit(1);
+        }
+        throw err;
+      }),
+      10000
+    ) as Promise<T>;
   };
