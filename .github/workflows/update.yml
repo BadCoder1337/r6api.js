@@ -3,14 +3,14 @@ name: Update
 on:
   push:
     paths:
-      - '.github/workflows/update.yml'
-      - 'scripts/*.ts'
-      - 'examples/example.js'
-      - 'src/methods/**'
-      - 'src/constants.ts'
-      - 'src/utils.ts'
+      - ".github/workflows/update.yml"
+      - "scripts/*.ts"
+      - "examples/example.js"
+      - "src/methods/**"
+      - "src/constants.ts"
+      - "src/utils.ts"
     branches:
-      - 'master'
+      - "master"
 
 jobs:
   update:
@@ -23,10 +23,10 @@ jobs:
         with:
           ref: master
 
-      - name: Set up Node 12.x
+      - name: Set up Node 22.x
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 22.x
 
       - name: Install dependencies
         run: yarn install
@@ -49,6 +49,6 @@ jobs:
       - name: Commit changes
         uses: EndBug/add-and-commit@v4
         with:
-          message: '[auto] chore: update example, method responses and tables'
+          message: "[auto] chore: update example, method responses and tables"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
