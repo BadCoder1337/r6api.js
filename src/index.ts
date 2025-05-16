@@ -8,7 +8,7 @@ import {
   setAuthFileName as _setAuthFileName,
   setAuthFilePath as _setAuthFilePath,
   getAuthFilePath as _getAuthFilePath,
-  setProxyUrl as _setAgent
+  setEnvProxy as _setEnvProxy
 } from './auth';
 import _findByUsername from './methods/findByUsername';
 import _findById, { IOptions as IFindByIdOptions } from './methods/findById';
@@ -71,7 +71,7 @@ export default class R6API {
     authFileDirPath?: string;
     authFileName?: string;
     authFilePath?: string;
-    proxy?: string;
+    useProxy?: boolean;
   }) {
     if (options.email && options.password)
       _setCredentials(options.email, options.password);
@@ -79,7 +79,7 @@ export default class R6API {
     if (options.authFileDirPath) _setAuthFileDirPath(options.authFileDirPath);
     if (options.authFileName) _setAuthFileName(options.authFileName);
     if (options.authFilePath) _setAuthFilePath(options.authFilePath);
-    if (options.proxy) _setAgent(options.proxy);
+    if (options.useProxy) _setEnvProxy();
     fetch('https://api.ipify.org?format=json')().then(data =>
       console.log('External IP Address:', data)
     );
