@@ -1,7 +1,7 @@
 import { tmpdir } from 'os';
 import { join } from 'path';
 import { promises as fs } from 'fs';
-import { Agent } from 'http';
+import { Agent } from 'https';
 
 import fetch from './fetch';
 import { Platform, UUID } from './typings';
