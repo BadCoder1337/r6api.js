@@ -1,4 +1,4 @@
-import { RequestInit } from 'node-fetch';
+import { RequestInit } from 'undici';
 
 import { getToken } from '../auth';
 import fetch from '../fetch';
