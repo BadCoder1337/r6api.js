@@ -1,5 +1,6 @@
-import { EnvHttpProxyAgent, ProxyAgent, Dispatcher } from 'undici';
+import { Agent, EnvHttpProxyAgent, ProxyAgent, Dispatcher } from 'undici';
 
+import { Resolver } from 'dns';
 import { tmpdir } from 'os';
 import { join } from 'path';
 import { promises as fs } from 'fs';
@@ -110,6 +111,24 @@ export class AuthManager {
 
   setProxyUrl = (url: string) => {
     this.dispatcher = new ProxyAgent(url);
+  };
+
+  setDnsServers = (servers: string[]) => {
+    const resolver = new Resolver()
+    resolver.setServers(servers)
+    this.dispatcher = new Agent({
+      connect: {
+        lookup: (hostname, options, callback) => {
+          resolver.resolve4(hostname, (err, addresses) => {
+            if (err) return callback(err, '', 4)
+            if (options.all) {
+              return callback(null, addresses.map(addr => ({ address: addr, family: 4 })))
+            }
+            callback(null, addresses[0], 4)
+          })
+        }
+      }
+    })
   };
 
   fetch = <T>(url: string, options: Partial<RequestInit> = {}) =>

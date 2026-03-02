@@ -61,6 +61,7 @@ export default class R6API {
     password?: string;
     ubiAppId?: string;
     proxyUrl?: string;
+    dnsServers?: string[];
     authFileDirPath?: string;
     authFileName?: string;
     authFilePath?: string;
@@ -72,6 +73,7 @@ export default class R6API {
     if (options.ubiAppId) this.auth.setUbiAppId(options.ubiAppId);
     if (options.proxyUrl) this.auth.setProxyUrl(options.proxyUrl);
     else if (options.useProxy) this.auth.setEnvProxy();
+    else if (options.dnsServers) this.auth.setDnsServers(options.dnsServers);
     if (options.authFileDirPath) this.auth.setAuthFileDirPath(options.authFileDirPath);
     if (options.authFileName) this.auth.setAuthFileName(options.authFileName);
     if (options.authFilePath) this.auth.setAuthFilePath(options.authFilePath);
@@ -168,6 +170,7 @@ export default class R6API {
   setAuthFileName = (name: string) => this.auth.setAuthFileName(name);
   setAuthFilePath = (path: string) => this.auth.setAuthFilePath(path);
   getAuthFilePath = () => this.auth.getAuthFilePath();
+  setDnsServers = (servers: string[]) => this.auth.setDnsServers(servers);
 
   destroy = () => this.auth.destroy();
 }
