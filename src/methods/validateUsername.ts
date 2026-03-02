@@ -1,10 +1,9 @@
-import { getToken, getAuth } from '../auth';
-import fetch from '../fetch';
+import { AuthManager } from '../auth';
 import { getURL } from '../utils';
 
-export default async (username: string) => {
+export default async (auth: AuthManager, username: string) => {
 
-  const { userId } = await getAuth();
+  const { userId } = await auth.getAuth();
 
   interface IApiResponse {
     validationReports: {
@@ -21,8 +20,8 @@ export default async (username: string) => {
     Locale?: string;
   }
 
-  return getToken()
-    .then(fetch<IApiResponse>(
+  return auth.getToken()
+    .then(auth.fetch<IApiResponse>(
       getURL.VALIDATEUSERNAME(userId),
       {
         method: 'POST',

@@ -1,6 +1,6 @@
-import { RequestInit, Response, fetch } from 'undici';
+import { RequestInit, Response, fetch, Dispatcher } from 'undici';
 
-import { IUbiAuth, ubiAppId, proxyAgent } from './auth';
+import { IUbiAuth } from './auth';
 
 const promiseTimeout = <T>(promise: Promise<T>, ms: number, reject = true) =>
   Promise.race([
@@ -8,7 +8,12 @@ const promiseTimeout = <T>(promise: Promise<T>, ms: number, reject = true) =>
     new Promise((res, rej) => setTimeout(() => (reject ? rej : res), ms))
   ]);
 
-export default <T>(url: string, options: Partial<RequestInit> = {}) =>
+export default <T>(
+  url: string,
+  options: Partial<RequestInit> = {},
+  ubiAppId: string,
+  dispatcher?: Dispatcher
+) =>
   async (token?: string, auth?: IUbiAuth): Promise<T> => {
     const { headers, ...optionsRest } = options;
 
@@ -26,7 +31,7 @@ export default <T>(url: string, options: Partial<RequestInit> = {}) =>
         }
       },
       ...(optionsRest && { ...optionsRest }),
-      dispatcher: proxyAgent
+      dispatcher
     });
 
     const handleResponse = async (res: Response) => {

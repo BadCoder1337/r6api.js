@@ -1,4 +1,4 @@
-import fetch from '../fetch';
+import { AuthManager } from '../auth';
 import { getURL, getNewsURL } from '../utils';
 import { IOptionsDocs } from '../typings';
 
@@ -66,13 +66,13 @@ export const optionsDocs: IOptionsDocs = [
   ['fallbackLocale', '`string`', false, '`\'en-us\'`', '']
 ];
 
-export default async (id: string, options?: IOptions) => {
+export default async (auth: AuthManager, id: string, options?: IOptions) => {
 
   const raw = options && options.raw || false;
   const locale = options && options.locale || 'en-gb';
   const fallbackLocale = options && options.fallbackLocale || 'en-us';
 
-  const res = await fetch<IApiResponse>(
+  const res = await auth.fetch<IApiResponse>(
     getURL.NEWSBYID(id, locale, fallbackLocale),
     { headers: { 'Authorization': '3u0FfSBUaTSew-2NVfAOSYWevVQHWtY9q3VM8Xx9Lto' } }
   )();

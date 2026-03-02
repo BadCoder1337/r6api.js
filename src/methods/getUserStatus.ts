@@ -1,5 +1,4 @@
-import { getToken } from '../auth';
-import fetch from '../fetch';
+import { AuthManager } from '../auth';
 import getApplications from './getApplications';
 import { UUID, IOptionsDocs } from '../typings';
 import { getURL } from '../utils';
@@ -34,11 +33,11 @@ export const optionsDocs: IOptionsDocs = [
   ]
 ];
 
-export default (ids: UUID[] | string[], options: IOptions) => {
+export default (auth: AuthManager, ids: UUID[] | string[], options: IOptions) => {
 
-  return getToken()
+  return auth.getToken()
     .then(
-      fetch<IApiResponse>(getURL.ONLINESTATUS(ids), { headers: { 'Ubi-LocaleCode': 'x' } })
+      auth.fetch<IApiResponse>(getURL.ONLINESTATUS(ids), { headers: { 'Ubi-LocaleCode': 'x' } })
     )
     .then(res => res.onlineStatuses)
     .then(async res => {
@@ -50,7 +49,7 @@ export default (ids: UUID[] | string[], options: IOptions) => {
       )];
 
       const applications = options && options.fetchApplications && applicationIds.length
-        ? await getApplications(applicationIds)
+        ? await getApplications(auth, applicationIds)
         : APPLICATIONS;
 
       return res.map(r => ({

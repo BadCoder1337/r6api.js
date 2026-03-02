@@ -1,5 +1,4 @@
-import { getToken } from '../auth';
-import fetch from '../fetch';
+import { AuthManager } from '../auth';
 import {
   Platform, UUID, SeasonId, SeasonIdExtended, RankIdV3, RankIdV4, RankIdV5, RegionId, BoardId,
   IOptionsDocs
@@ -130,7 +129,7 @@ export const optionsDocs: IOptionsDocs = [
 const getMatchResult = (id: IRank['last_match_result']) =>
   ({ 0: 'unknown', 1: 'win', 2: 'loss', 3: 'abandon' }[id]);
 
-export default (platform: Platform, ids: UUID[], options?: IOptions) => {
+export default (auth: AuthManager, platform: Platform, ids: UUID[], options?: IOptions) => {
 
   const boardIds = options && options.boardIds && options.boardIds !== 'all'
     ? [options.boardIds].flat() : Object.keys(BOARDS) as BoardId[];
@@ -153,8 +152,8 @@ export default (platform: Platform, ids: UUID[], options?: IOptions) => {
   return Promise.all(seasonIds.map(seasonId =>
     Promise.all(regionIds.map(regionId =>
       Promise.all(boardIds.map(boardId =>
-        getToken()
-          .then(fetch<IApiResponse>(getURL.RANKS(platform, ids, seasonId, regionId, boardId)))
+        auth.getToken()
+          .then(auth.fetch<IApiResponse>(getURL.RANKS(platform, ids, seasonId, regionId, boardId)))
       ))
     ))
   ))

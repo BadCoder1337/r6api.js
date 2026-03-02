@@ -12,9 +12,9 @@
     "require": "./dist/index.js"
   },
   "scripts": {
-    "prepack": "yarn build",
+    "prepack": "npm run build",
     "build": "rimraf dist && tsc",
-    "example": "yarn build && ts-node --project scripts/tsconfig.json scripts/example",
+    "example": "npm run build && ts-node --project scripts/tsconfig.json scripts/example",
     "methods": "ts-node scripts/methods",
     "tables": "ts-node scripts/tables",
     "lint": "eslint .",

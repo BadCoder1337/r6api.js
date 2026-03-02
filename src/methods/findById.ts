@@ -1,5 +1,4 @@
-import { getToken } from '../auth';
-import fetch from '../fetch';
+import { AuthManager } from '../auth';
 import { PlatformAllExtended, UUID, IOptionsDocs } from '../typings';
 import { getURL, getAvatars } from '../utils';
 
@@ -24,15 +23,15 @@ export const optionsDocs: IOptionsDocs = [
   ]
 ];
 
-export default (platform: PlatformAllExtended, ids: UUID[] | string[], options?: IOptions) =>
+export default (auth: AuthManager, platform: PlatformAllExtended, ids: UUID[] | string[], options?: IOptions) =>
 
-  getToken()
+  auth.getToken()
     .then(
       platform === 'all'
         ? options && options.isUserId
-          ? fetch<IApiResponse>(getURL.BYUSERID(ids))
-          : fetch<IApiResponse>(getURL.BYPROFILEID(ids))
-        : fetch<IApiResponse>(getURL.BYIDONPLATFORM(platform, ids))
+          ? auth.fetch<IApiResponse>(getURL.BYUSERID(ids))
+          : auth.fetch<IApiResponse>(getURL.BYPROFILEID(ids))
+        : auth.fetch<IApiResponse>(getURL.BYIDONPLATFORM(platform, ids))
     )
     .then(res =>
       res.profiles

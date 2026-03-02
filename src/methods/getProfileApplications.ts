@@ -1,5 +1,4 @@
-import { getToken } from '../auth';
-import fetch from '../fetch';
+import { AuthManager } from '../auth';
 import getApplications from './getApplications';
 import { UUID, IOptionsDocs } from '../typings';
 import { getURL, groupBy } from '../utils';
@@ -28,16 +27,16 @@ export const optionsDocs: IOptionsDocs = [
   ]
 ];
 
-export default (ids: UUID[], options?: IOptions) =>
-  getToken()
-    .then(fetch<IApiResponse>(getURL.PROFILEAPPLICATIONS(ids)))
+export default (auth: AuthManager, ids: UUID[], options?: IOptions) =>
+  auth.getToken()
+    .then(auth.fetch<IApiResponse>(getURL.PROFILEAPPLICATIONS(ids)))
     .then(res => res.applications)
     .then(async res => {
 
       const applicationIds = [...new Set(res.map(application => application.appId))];
 
       const applications = options && options.fetchApplications && applicationIds.length
-        ? await getApplications(applicationIds)
+        ? await getApplications(auth, applicationIds)
         : APPLICATIONS;
 
       return Object.entries(

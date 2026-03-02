@@ -1,5 +1,4 @@
-import { getToken } from '../auth';
-import fetch from '../fetch';
+import { AuthManager } from '../auth';
 import { Platform, UUID, MPType } from '../typings';
 import { getURL } from '../utils';
 
@@ -15,9 +14,9 @@ const statGetter = (obj: IApiResponse, id: UUID, stat: string, type: MPType) =>
   (obj.results[id] as IApiResponse['results'][string])[`${stat}${type}_timeplayed:infinite`]
   || 0;
 
-export default (platform: Platform, ids: UUID[]) =>
-  getToken()
-    .then(fetch<IApiResponse>(getURL.PLAYTIME(platform, ids)))
+export default (auth: AuthManager, platform: Platform, ids: UUID[]) =>
+  auth.getToken()
+    .then(auth.fetch<IApiResponse>(getURL.PLAYTIME(platform, ids)))
     .then(res =>
       Object.keys(res.results).map(id => ({
         id,

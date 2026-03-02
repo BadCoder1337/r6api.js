@@ -1,4 +1,4 @@
-import fetch from '../fetch';
+import { AuthManager } from '../auth';
 import { UUID } from '../typings';
 import { getURL } from '../utils';
 
@@ -16,8 +16,8 @@ export interface IApiResponse {
   ImpactedFeatures: string[];
 }
 
-export default () =>
-  fetch<IApiResponse[]>(getURL.STATUS())()
+export default (auth: AuthManager) =>
+  auth.fetch<IApiResponse[]>(getURL.STATUS())()
     .then(res =>
       res
         .filter(app =>

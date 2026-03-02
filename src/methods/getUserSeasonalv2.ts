@@ -1,6 +1,5 @@
-import { getAuth, getToken } from '../auth';
+import { AuthManager } from '../auth';
 import { RANKS_V6 } from '../constants';
-import fetch from '../fetch';
 import { UUID, PlatformCrossplay, RankIdV6, SeasonId } from '../typings';
 import { getKD, getRankIconFromRankId, getRankNameFromRankId, getURL, getWinRate } from '../utils';
 
@@ -56,12 +55,12 @@ export interface IGetRp {
 export const getRp = ({ rankId, mmr }: IGetRp) =>
   mmr - (RANKS_V6.find(rank => rank.id === rankId)?.range?.[0] ?? 0);
 
-export default (ids: UUID[]) => {
+export default (auth: AuthManager, ids: UUID[]) => {
 
   // RANKS_V6
 
-  return Promise.all([getToken(), getAuth()])
-    .then(([token, auth]) => fetch<IApiResponse>(getURL.GETUSERSEASONALV2(ids))(token, auth))
+  return Promise.all([auth.getToken(), auth.getAuth()])
+    .then(([token, authData]) => auth.fetch<IApiResponse>(getURL.GETUSERSEASONALV2(ids))(token, authData))
     .then(res => res.platform_families_full_profiles
       .map(profile =>
         profile.board_ids_full_profiles.map(board => board.full_profiles)

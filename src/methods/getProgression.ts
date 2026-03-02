@@ -1,5 +1,4 @@
-import { getToken } from '../auth';
-import fetch from '../fetch';
+import { AuthManager } from '../auth';
 import { Platform, UUID } from '../typings';
 import { getURL } from '../utils';
 
@@ -13,9 +12,9 @@ export interface IApiResponse {
   player_profiles: IProgression[];
 }
 
-export default (platform: Platform, ids: UUID[]) =>
-  getToken()
-    .then(fetch<IApiResponse>(getURL.PROGRESS(platform, ids)))
+export default (auth: AuthManager, platform: Platform, ids: UUID[]) =>
+  auth.getToken()
+    .then(auth.fetch<IApiResponse>(getURL.PROGRESS(platform, ids)))
     .then(res =>
       res.player_profiles.map(profile => ({
         id: profile.profile_id,

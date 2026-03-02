@@ -1,5 +1,4 @@
-import { getToken } from '../auth';
-import fetch from '../fetch';
+import { AuthManager } from '../auth';
 import { PlatformAll, UUID } from '../typings';
 import { getURL, getAvatars } from '../utils';
 
@@ -14,9 +13,9 @@ export interface IApiResponse {
   profiles: IProfile[];
 }
 
-export default (platform: PlatformAll, username: string[]) =>
-  getToken()
-    .then(fetch<IApiResponse>(getURL.BYUSERNAME(platform, username)))
+export default (auth: AuthManager, platform: PlatformAll, username: string[]) =>
+  auth.getToken()
+    .then(auth.fetch<IApiResponse>(getURL.BYUSERNAME(platform, username)))
     .then(res => res.profiles.map(profile => ({
       id: profile.profileId,
       userId: profile.userId,

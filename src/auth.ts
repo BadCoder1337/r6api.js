@@ -1,13 +1,14 @@
-import { EnvHttpProxyAgent } from 'undici';
+import { EnvHttpProxyAgent, ProxyAgent, Dispatcher } from 'undici';
 
 import { tmpdir } from 'os';
 import { join } from 'path';
 import { promises as fs } from 'fs';
 
-import fetch from './fetch';
+import _fetch from './fetch';
 import { Platform, UUID } from './typings';
 import { getURL } from './utils';
 import { ubiAppId as defaultUbiAppId } from './constants';
+import { RequestInit } from 'undici';
 
 export interface IUbiAuth {
   platformType: Platform;
@@ -28,79 +29,93 @@ export interface IUbiAuth {
 }
 
 const TEN_MIN_IN_MS = 10 * 60 * 1000;
-const credentials = { email: '', password: '' };
-let LOGIN_TIMEOUT: any;
-export let ubiAppId = defaultUbiAppId;
-let authFileDirPath = tmpdir();
-let authFileName = 'r6api.js-auth.json';
-let authFilePath: null | string = null;
-export let proxyAgent: EnvHttpProxyAgent | undefined;
 
 const getExpiration = (auth: IUbiAuth) =>
   +new Date(auth.expiration) - +new Date() - TEN_MIN_IN_MS;
 
-export const login = async () => {
-  const lastAuth: IUbiAuth = await fs
-    .readFile(getAuthFilePath(), 'utf8')
-    .then(auth => JSON.parse(auth))
-    .catch(() => '');
-  if (lastAuth && getExpiration(lastAuth) > 0) {
-    setNextLogin(lastAuth);
-    return lastAuth;
-  }
+export class AuthManager {
+  private credentials = { email: '', password: '' };
+  private loginTimeout: any;
+  ubiAppId: string = defaultUbiAppId;
+  private _authFileDirPath: string = tmpdir();
+  private _authFileName: string = 'r6api.js-auth.json';
+  private _authFilePath: null | string = null;
+  dispatcher: Dispatcher | undefined;
 
-  const token =
-    'Basic ' +
-    Buffer.from(
-      `${credentials.email}:${credentials.password}`,
-      'utf8'
-    ).toString('base64');
+  login = async (): Promise<IUbiAuth> => {
+    const lastAuth: IUbiAuth = await fs
+      .readFile(this.getAuthFilePath(), 'utf8')
+      .then(auth => JSON.parse(auth))
+      .catch(() => '');
+    if (lastAuth && getExpiration(lastAuth) > 0) {
+      this.setNextLogin(lastAuth);
+      return lastAuth;
+    }
 
-  return fetch<IUbiAuth>(getURL.LOGIN(), {
-    method: 'POST',
-    body: JSON.stringify({ rememberMe: true })
-  })(token)
-    .then(async res => {
-      if (res && res.ticket && res.expiration) {
-        await fs.writeFile(getAuthFilePath(), JSON.stringify(res));
-        return res;
-      } else throw new Error(`No response from login: ${JSON.stringify(res)}`);
-    })
-    .catch(err => {
-      clearTimeout(LOGIN_TIMEOUT);
-      throw err;
-    });
-};
+    const token =
+      'Basic ' +
+      Buffer.from(
+        `${this.credentials.email}:${this.credentials.password}`,
+        'utf8'
+      ).toString('base64');
 
-const setNextLogin = async (auth: IUbiAuth) => {
-  clearTimeout(LOGIN_TIMEOUT);
-  LOGIN_TIMEOUT = setTimeout(() => login(), getExpiration(auth));
-};
+    return this.fetch<IUbiAuth>(getURL.LOGIN(), {
+      method: 'POST',
+      body: JSON.stringify({ rememberMe: true })
+    })(token)
+      .then(async res => {
+        if (res && res.ticket && res.expiration) {
+          await fs.writeFile(this.getAuthFilePath(), JSON.stringify(res));
+          return res;
+        } else throw new Error(`No response from login: ${JSON.stringify(res)}`);
+      })
+      .catch(err => {
+        clearTimeout(this.loginTimeout);
+        throw err;
+      });
+  };
 
-export const getAuth = () => login();
-export const getTicket = () => login().then(auth => auth.ticket);
-export const getToken = () => login().then(auth => `Ubi_v1 t=${auth.ticket}`);
+  private setNextLogin = async (auth: IUbiAuth) => {
+    clearTimeout(this.loginTimeout);
+    this.loginTimeout = setTimeout(() => this.login(), getExpiration(auth));
+  };
 
-export const setCredentials = (email: string, password: string) => {
-  credentials.email = email;
-  credentials.password = password;
-};
-export const setUbiAppId = (_ubiAppId: string) => {
-  ubiAppId = _ubiAppId;
-};
+  getAuth = () => this.login();
+  getTicket = () => this.login().then(auth => auth.ticket);
+  getToken = () => this.login().then(auth => `Ubi_v1 t=${auth.ticket}`);
 
-export const setAuthFileDirPath = (path: string) => {
-  authFileDirPath = path;
-};
-export const setAuthFileName = (name: string) => {
-  authFileName = `${name}.json`;
-};
-export const setAuthFilePath = (path: string) => {
-  authFilePath = path;
-};
-export const getAuthFilePath = () =>
-  authFilePath || join(authFileDirPath, authFileName);
+  setCredentials = (email: string, password: string) => {
+    this.credentials.email = email;
+    this.credentials.password = password;
+  };
+  setUbiAppId = (_ubiAppId: string) => {
+    this.ubiAppId = _ubiAppId;
+  };
 
-export const setEnvProxy = () => {
-  proxyAgent = new EnvHttpProxyAgent();
-};
+  setAuthFileDirPath = (path: string) => {
+    this._authFileDirPath = path;
+  };
+  setAuthFileName = (name: string) => {
+    this._authFileName = `${name}.json`;
+  };
+  setAuthFilePath = (path: string) => {
+    this._authFilePath = path;
+  };
+  getAuthFilePath = () =>
+    this._authFilePath || join(this._authFileDirPath, this._authFileName);
+
+  setEnvProxy = () => {
+    this.dispatcher = new EnvHttpProxyAgent();
+  };
+
+  setProxyUrl = (url: string) => {
+    this.dispatcher = new ProxyAgent(url);
+  };
+
+  fetch = <T>(url: string, options: Partial<RequestInit> = {}) =>
+    _fetch<T>(url, options, this.ubiAppId, this.dispatcher);
+
+  destroy = () => {
+    clearTimeout(this.loginTimeout);
+  };
+}

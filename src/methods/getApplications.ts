@@ -1,5 +1,4 @@
-import { getToken } from '../auth';
-import fetch from '../fetch';
+import { AuthManager } from '../auth';
 import { UUID } from '../typings';
 import { getURL } from '../utils';
 import { APPLICATIONS } from '../constants';
@@ -15,9 +14,9 @@ export interface IApiResponse {
   applications: IApplications[];
 }
 
-export default (applicationIds: UUID[]) =>
-  getToken()
-    .then(fetch<IApiResponse>(getURL.APPLICATIONS(applicationIds)))
+export default (auth: AuthManager, applicationIds: UUID[]) =>
+  auth.getToken()
+    .then(auth.fetch<IApiResponse>(getURL.APPLICATIONS(applicationIds)))
     .then(res => res.applications)
     .then(res => res.map(application => ({
       id: application.applicationId,

@@ -1,7 +1,6 @@
 import { RequestInit } from 'undici';
 
-import { getToken } from '../auth';
-import fetch from '../fetch';
+import { AuthManager } from '../auth';
 
-export default <T>(url: string, params?: Partial<RequestInit>): Promise<T> =>
-  getToken().then(fetch(url, params));
+export default <T>(auth: AuthManager, url: string, params?: Partial<RequestInit>): Promise<T> =>
+  auth.getToken().then(auth.fetch(url, params));

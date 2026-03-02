@@ -1,5 +1,4 @@
-import { getToken } from '../auth';
-import fetch from '../fetch';
+import { AuthManager } from '../auth';
 import {
   Platform, UUID, MPType, WeaponTypeId, WeaponName, OperatorName, StatsCategoryName,
   IOptionsDocs
@@ -324,7 +323,7 @@ const weaponsGetter = (obj: any, type: MPType) =>
     return acc;
   }, {} as Record<string, any>);
 
-export default (platform: Platform, ids: UUID[], options?: IOptions) => {
+export default (auth: AuthManager, platform: Platform, ids: UUID[], options?: IOptions) => {
 
   const raw = options && options.raw || false;
 
@@ -344,8 +343,8 @@ export default (platform: Platform, ids: UUID[], options?: IOptions) => {
     }, []);
 
   return Promise.all(stats.map(chunk =>
-    getToken()
-      .then(fetch<IApiResponse>(getURL.STATS(platform, ids, chunk)))
+    auth.getToken()
+      .then(auth.fetch<IApiResponse>(getURL.STATS(platform, ids, chunk)))
   ))
     .then(res =>
       Object.entries(
